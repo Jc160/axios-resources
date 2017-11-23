@@ -18,7 +18,7 @@ let objConfig = {
   host: 'https://www.example/api'
 };
 
-let objAxiosResources = new AxiosResources(objConfig);
+let objAxiosResources = AxiosResources(objConfig);
 let objSources = objAxiosResources.source('endpoint');
 
 
