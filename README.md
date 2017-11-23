@@ -10,6 +10,8 @@ Based on Angular ngResources.
 
 ## Examples
 
+[Example File](./example.js)
+
 ```js
 
 import AxiosResources from ‘axios-resources’;
