@@ -1,0 +1,22 @@
+{
+  "name": "axios-resources",
+  "version": "1.0.0",
+  "description": "Axios wrapper based on Angular Resources behaviour",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Axios",
+    "Fetch",
+    "Angular",
+    "resources",
+    "resources"
+  ],
+  "author": "Jc160",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "lodash": "^4.17.4"
+  }
+}
