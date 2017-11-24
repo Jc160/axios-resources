@@ -58,13 +58,13 @@ objPostSource.get({ userId: 1 }).then((results) => {
 
 
 // POST https://jsonplaceholder.typicode.com/posts HTTP/1.1
-const objPayload = {
+const objCreatePayload = {
   title: 'foo',
   body: 'bar',
   userId: 1
 };
 
-objPostSource.post(objPayload).then((results) => {
+objPostSource.post(objCreatePayload).then((results) => {
   // success
   console.log(results);
 })
@@ -75,14 +75,14 @@ objPostSource.post(objPayload).then((results) => {
 
 
 // PUT https://jsonplaceholder.typicode.com/posts/1 HTTP/1.1
-const objPayload = {
+const objUpdatePayload = {
   id: 1, // This will be added to the URL
   title: 'foo2',
   body: 'bar',
   userId: 1
 };
 
-objPostSource.update(objPayload).then((results) => {
+objPostSource.update(objUpdatePayload).then((results) => {
   // success
   console.log(results);
 })
@@ -93,11 +93,11 @@ objPostSource.update(objPayload).then((results) => {
 
 
 // DELETE https://jsonplaceholder.typicode.com/posts/1 HTTP/1.1
-const objPayload = {
+const objDeletePayload = {
   id: 1, // This will be added to the URL
 };
 
-objPostSource.remove(objPayload).then((results) => {
+objPostSource.remove(objDeletePayload).then((results) => {
   // success
   console.log(results);
 })
@@ -108,11 +108,11 @@ objPostSource.remove(objPayload).then((results) => {
 
 
 // GET https://jsonplaceholder.typicode.com/posts/1 HTTP/1.1
-const objPayload = {
+const objGetSinglePayload = {
   id: 1, // This will be added to the URL
 };
 
-objPostSource.getById(objPayload).then((results) => {
+objPostSource.getById(objGetSinglePayload).then((results) => {
   // success
   console.log(results);
 })
@@ -123,11 +123,11 @@ objPostSource.getById(objPayload).then((results) => {
 
 
 // GET https://jsonplaceholder.typicode.com/posts/1/comments HTTP/1.1
-const objPayload = {
+const objGetCommentsPayload = {
   id: 1, // This will be added to the URL
 };
 
-objPostSource.getPostComments(objPayload).then((results) => {
+objPostSource.getPostComments(objGetCommentsPayload).then((results) => {
   // success
   console.log(results);
 })
