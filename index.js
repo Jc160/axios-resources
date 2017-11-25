@@ -3,6 +3,7 @@
 
 const Axios = require('axios');
 const Lodash = require('lodash');
+const Qs = require('qs');
 
 
 ////////////////////////////////////////////////////////////
@@ -14,8 +15,10 @@ const Lodash = require('lodash');
  */
 const HEADERS = {
  'Accept': 'application/json',
- 'Content-Type': 'application/json',
 }
+
+
+const X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 
 /**
@@ -114,6 +117,11 @@ function Requester(objConfig={}) {
         objCustomEndpoint.options,
         Lodash.omit(objNewConfig, ['addHeaders'])
       );
+
+      const strContentType = Lodash.get(objConfig, ['headers', 'Content-Type'], false);
+      if (strContentType === X_WWW_FORM_URLENCODED) {
+        objConfig.data = Qs.stringify(objConfig.data);
+      }
 
       return request(objConfig, objCustomEndpoint);
     }
