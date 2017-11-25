@@ -45,7 +45,7 @@ function Requester(objConfig={}) {
   axios.interceptors.request.use(objConfig.beforeFetchFn);
 
   // Add a response interceptor
-  axios.interceptors.response.use(objConfig.afterFetch);
+  axios.interceptors.response.use(objConfig.afterFetch, objConfig.onRequestError);
 
 
   /**
