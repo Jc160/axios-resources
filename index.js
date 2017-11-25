@@ -41,7 +41,7 @@ function Requester(objConfig={}) {
   const INTERNAL_HEADERS = Object.assign({}, HEADERS, objConfig.headers);
 
   axios.defaults.headers.common['Authorization'] = objConfig.authToken;
-  axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  axios.defaults.headers.post['Content-Type'] = X_WWW_FORM_URLENCODED;
 
 
   // Add a request interceptor
@@ -107,7 +107,7 @@ function Requester(objConfig={}) {
         {
           method: objCustomEndpoint.method,
           url: getCustomEndpoint(objCustomEndpoint, objData),
-          headers: (
+          headers: Object.assign(
             {},
             objInternalHeaders,
             objNewConfig.addHeaders
@@ -119,7 +119,7 @@ function Requester(objConfig={}) {
       );
 
       const strContentType = Lodash.get(objConfig, ['headers', 'Content-Type'], false);
-      if (strContentType === X_WWW_FORM_URLENCODED) {
+      if (Lodash.includes(strContentType, X_WWW_FORM_URLENCODED)) {
         objConfig.data = Qs.stringify(objConfig.data);
       }
 
