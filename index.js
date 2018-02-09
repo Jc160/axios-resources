@@ -99,6 +99,16 @@ function Requester(objConfig={}) {
 
 
     return (objData, objNewConfig={}) => {
+
+      if (objCustomEndpoint.method == 'FORMDATA') {
+        const objHeaders = Object.assign(
+          {},
+          objInternalHeaders,
+          objNewConfig.addHeaders
+        );
+        return upload(objData, objHeaders, getCustomEndpoint(objCustomEndpoint, objData));
+      }
+
       const strDataKey = Lodash.includes(DATA_VALID_METHODS, objCustomEndpoint.method.toUpperCase())
         ? 'data'
         : 'params';
@@ -174,6 +184,60 @@ function Requester(objConfig={}) {
       },
       getCustomEndpoints(objCustomEndpoints, objInternalHeaders)
     )
+  }
+
+
+  /**
+   * Upload request with form data
+   * @param  {Object}  objData        Post data
+   * @param  {Object}  objHeaders     Headers
+   * @return {Promise}
+   */
+  function upload(objData, objHeaders, strInternalEndPoint) {
+    let objFormData = new FormData();
+
+    //TODO: Add recursion to fields.
+    //TODO: Add missing field types (Object).
+
+    if (objData.files) {
+      for (let strKey in objData.files) {
+        objFormData.append(strKey, objData.files[strKey]);
+        // for (let intIndex in objData.files[strKey]) {
+          // objFormData.append(strKey, objData.files[strKey][intIndex]);
+        // }
+      }
+    }
+
+    if (objData.fields) {
+      for (let strKey in objData.fields) {
+        if (objData.fields[strKey]instanceof Date) {
+          objFormData.append(strKey, objData.fields[strKey].toISOString());
+        }
+
+        if (Array.isArray(objData.fields[strKey])) {
+          for (let intIndex in objData.fields[strKey]) {
+            if (!Lodash.isNil(objData.fields[strKey][intIndex])) {
+              objFormData.append(strKey, objData.fields[strKey][intIndex])
+            }
+          }
+        } else if (!Lodash.isNil(objData.fields[strKey])) {
+          objFormData.append(strKey, objData.fields[strKey])
+        }
+      }
+    }
+
+    const objUploadHeaders = { ...objHeaders };
+
+    delete objUploadHeaders.Accept;
+
+    let objRequest = {
+      url: strInternalEndPoint,
+      method: 'POST',
+      headers: objUploadHeaders,
+      data: objFormData
+    };
+
+    return request(objRequest, {});
   }
 
 
